@@ -1,0 +1,14 @@
+{
+  "name": "arb",
+  "version": "0.1.0",
+  "description": "",
+  "dependencies": {
+    "@terra-money/terrain": "^0.5.8"
+  },
+  "workspaces": [
+    "frontend",
+    "lib"
+  ],
+  "author": "Žan Kogovšek <zk0821@student.uni-lj.si>",
+  "license": "ISC"
+}

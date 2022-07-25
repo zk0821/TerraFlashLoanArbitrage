@@ -1,0 +1,10 @@
+{
+  "testnet": {
+    "arb": {
+      "codeId": "2368",
+      "contractAddresses": {
+        "default": "terra157p3p8fc8gc4cxs8zcpctayxg488h6urta57c5v5hg47jnc6c8gs7k26c0"
+      }
+    }
+  }
+}
