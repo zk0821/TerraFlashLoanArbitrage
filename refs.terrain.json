@@ -1,9 +1,15 @@
 {
   "testnet": {
-    "arb": {
-      "codeId": "2368",
+    "arbitrage": {
+      "codeId": "3068",
       "contractAddresses": {
-        "default": "terra157p3p8fc8gc4cxs8zcpctayxg488h6urta57c5v5hg47jnc6c8gs7k26c0"
+        "default": "terra10t5r9feptnl7anfrulg8qg6sv2nfnh06h5lyv3u8e6m0na5yqsvsn7rarp"
+      }
+    },
+    "flash-loan": {
+      "codeId": "3027",
+      "contractAddresses": {
+        "default": "terra1lxrx88zm2m24nrcppxm8a4fnt8xsmf73ass03es76swwsfejm89q6mcn60"
       }
     }
   }

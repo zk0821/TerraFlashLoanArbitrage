@@ -1,0 +1,1 @@
+0e6e081d0a9573494e8249f8e5b7ee6cfbc3061b28dcfa40acf0819175980f10  ./target/wasm32-unknown-unknown/release/arbitrage.wasm

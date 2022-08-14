@@ -4,6 +4,6 @@ const wallets = require("./.wallets.json");
 
 module.exports = {
   terra_wallet_1: {
-    mnemonic: wallets.wallets[0].mnemonic
+    mnemonic: wallets.wallets[0].mnemonic,
   }
 };

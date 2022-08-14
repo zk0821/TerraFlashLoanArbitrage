@@ -1,1 +1,0 @@
-591529ef619baeaf28f7cb8b424bd110d05d25a911132acefe25854088b2e0b8  ./target/wasm32-unknown-unknown/release/arb.wasm

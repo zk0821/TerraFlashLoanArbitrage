@@ -1,0 +1,1 @@
+cdf57f19d0e51373290122aa0bf74a76e8ec0b22d72be653f8cf3a526b683568  ./target/wasm32-unknown-unknown/release/flash_loan.wasm
