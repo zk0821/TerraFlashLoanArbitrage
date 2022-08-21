@@ -1,14 +1,98 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ExecuteMsg",
-  "anyOf": [
+  "oneOf": [
     {
       "type": "object",
       "required": [
-        "increment"
+        "execute_swap"
       ],
       "properties": {
-        "increment": {
+        "execute_swap": {
+          "type": "object",
+          "required": [
+            "factory_addr",
+            "offer_amount",
+            "offer_asset",
+            "wanted_asset"
+          ],
+          "properties": {
+            "factory_addr": {
+              "type": "string"
+            },
+            "offer_amount": {
+              "type": "string"
+            },
+            "offer_asset": {
+              "type": "string"
+            },
+            "wanted_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "execute_swap_full_amount"
+      ],
+      "properties": {
+        "execute_swap_full_amount": {
+          "type": "object",
+          "required": [
+            "factory_addr",
+            "offer_asset",
+            "wanted_asset"
+          ],
+          "properties": {
+            "factory_addr": {
+              "type": "string"
+            },
+            "offer_asset": {
+              "type": "string"
+            },
+            "wanted_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "provide_to_flash_loan"
+      ],
+      "properties": {
+        "provide_to_flash_loan": {
+          "type": "object",
+          "required": [
+            "offer_amount",
+            "offer_asset"
+          ],
+          "properties": {
+            "offer_amount": {
+              "type": "string"
+            },
+            "offer_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "withdraw_from_flash_loan"
+      ],
+      "properties": {
+        "withdraw_from_flash_loan": {
           "type": "object"
         }
       },
@@ -17,18 +101,61 @@
     {
       "type": "object",
       "required": [
-        "reset"
+        "withdraw"
       ],
       "properties": {
-        "reset": {
+        "withdraw": {
           "type": "object",
           "required": [
-            "count"
+            "denom"
           ],
           "properties": {
-            "count": {
-              "type": "integer",
-              "format": "int32"
+            "denom": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "execute_arbitrage"
+      ],
+      "properties": {
+        "execute_arbitrage": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "receive_loan"
+      ],
+      "properties": {
+        "receive_loan": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "assert_balance"
+      ],
+      "properties": {
+        "assert_balance": {
+          "type": "object",
+          "required": [
+            "amount"
+          ],
+          "properties": {
+            "amount": {
+              "type": "string"
             }
           }
         }

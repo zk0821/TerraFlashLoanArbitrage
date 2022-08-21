@@ -3,12 +3,19 @@
   "title": "InstantiateMsg",
   "type": "object",
   "required": [
-    "count"
+    "astroport_factory_address",
+    "flash_loan_contract_address",
+    "terraswap_factory_address"
   ],
   "properties": {
-    "count": {
-      "type": "integer",
-      "format": "int32"
+    "astroport_factory_address": {
+      "type": "string"
+    },
+    "flash_loan_contract_address": {
+      "type": "string"
+    },
+    "terraswap_factory_address": {
+      "type": "string"
     }
   }
 }

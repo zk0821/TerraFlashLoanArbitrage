@@ -5,9 +5,9 @@ import { TERRASWAP_FACTORY_ADDR, ASTROPORT_FACTORY_ADDR, ULUNA, ASTRO } from "./
 task(async (env:Env) => {
   const lib = new Lib(env);
   console.log("Testing terraswap swap...");
-  let terraswapResponse = await lib.executeSwap(TERRASWAP_FACTORY_ADDR, ULUNA, "5000", ASTRO);
+  let terraswapResponse = await lib.executeSwap(TERRASWAP_FACTORY_ADDR, ULUNA, "1", ASTRO);
   console.log(terraswapResponse);
   console.log("Testing astroport swap...");
-  let astroportResponse = await lib.executeSwap(ASTROPORT_FACTORY_ADDR, ULUNA, "50", ASTRO);
+  let astroportResponse = await lib.executeSwap(ASTROPORT_FACTORY_ADDR, ULUNA, "1", ASTRO);
   console.log(astroportResponse);
 });

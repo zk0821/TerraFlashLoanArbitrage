@@ -1,7 +1,7 @@
 {
   "testnet": {
     "arbitrage": {
-      "codeId": "3068",
+      "codeId": "3320",
       "contractAddresses": {
         "default": "terra10t5r9feptnl7anfrulg8qg6sv2nfnh06h5lyv3u8e6m0na5yqsvsn7rarp"
       }

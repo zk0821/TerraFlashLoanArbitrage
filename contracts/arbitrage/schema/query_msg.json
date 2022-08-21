@@ -1,14 +1,86 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "QueryMsg",
-  "anyOf": [
+  "oneOf": [
     {
       "type": "object",
       "required": [
-        "get_count"
+        "query_balances"
       ],
       "properties": {
-        "get_count": {
+        "query_balances": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "query_pool"
+      ],
+      "properties": {
+        "query_pool": {
+          "type": "object",
+          "required": [
+            "factory_addr",
+            "offer_asset",
+            "wanted_asset"
+          ],
+          "properties": {
+            "factory_addr": {
+              "type": "string"
+            },
+            "offer_asset": {
+              "type": "string"
+            },
+            "wanted_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "simulate_swap"
+      ],
+      "properties": {
+        "simulate_swap": {
+          "type": "object",
+          "required": [
+            "amount",
+            "factory_addr",
+            "offer_asset",
+            "wanted_asset"
+          ],
+          "properties": {
+            "amount": {
+              "type": "string"
+            },
+            "factory_addr": {
+              "type": "string"
+            },
+            "offer_asset": {
+              "type": "string"
+            },
+            "wanted_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "estimate_arbitrage"
+      ],
+      "properties": {
+        "estimate_arbitrage": {
           "type": "object"
         }
       },
