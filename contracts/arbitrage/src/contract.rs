@@ -312,8 +312,14 @@ fn try_estimate_arbitrage(deps: Deps) -> StdResult<Vec<ArbitrageResponse>> {
                 Ok(value) => value,
                 Err(..) => Uint128::zero(),
             };
-            let profit_from_astroport_to_terraswap: Uint128 = calculate_profit(starting_amount_from_astroport_to_terraswap, astroport_native_token_amount, astroport_token_amount, terraswap_native_token_amount, terraswap_token_amount)?;
-            let profit_from_terraswap_to_astroport: Uint128 = calculate_profit(starting_amount_from_terraswap_to_astroport, terraswap_native_token_amount, terraswap_token_amount, astroport_native_token_amount, astroport_token_amount)?;
+            let profit_from_astroport_to_terraswap: Uint128 = match calculate_profit(starting_amount_from_astroport_to_terraswap, astroport_native_token_amount, astroport_token_amount, terraswap_native_token_amount, terraswap_token_amount) {
+                Ok(value) => value,
+                Err(..) => Uint128::zero(),
+            };
+            let profit_from_terraswap_to_astroport: Uint128 = match calculate_profit(starting_amount_from_terraswap_to_astroport, terraswap_native_token_amount, terraswap_token_amount, astroport_native_token_amount, astroport_token_amount) {
+                Ok(value) => value,
+                Err(..) => Uint128::zero(),
+            };
             //Finalize the arbitrage estimation
             let (starting_exchange_factory, ending_exchange_factory, starting_exchange, ending_exchange, starting_amount, calculated_profit): (String, String, String, String, Uint128, Uint128);
             if starting_amount_from_astroport_to_terraswap > Uint128::zero() {
@@ -339,7 +345,13 @@ fn try_estimate_arbitrage(deps: Deps) -> StdResult<Vec<ArbitrageResponse>> {
             //Token -> Native token
             let exchange_native_token_amount: Uint128 = try_simulate_swap(deps, ending_exchange_factory.clone(), token.id.to_string(), exchanged_token_amount.to_string(), native_token.id.to_string())?;
             //Calculate simulated profit
-            let simulated_profit = exchange_native_token_amount - starting_amount;
+            let simulated_profit: Uint128;
+            if exchange_native_token_amount > starting_amount {
+                simulated_profit = exchange_native_token_amount - starting_amount;
+            } else {
+                //Arbitrage opportunity is not present
+                continue;
+            }
             arbitrage_list.push(ArbitrageResponse { native_token: native_token.id.to_string(), token: token.id.to_string(), starting_exchange: starting_exchange, starting_exchange_factory: starting_exchange_factory.clone(), ending_exchange: ending_exchange, ending_exchange_factory: ending_exchange_factory.clone(), optimal_starting_amount: starting_amount, calculated_profit: calculated_profit, simulated_profit: simulated_profit });
         }
     }
@@ -363,4 +375,69 @@ mod tests {
         let res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
         assert_eq!(0, res.messages.len());
     }
+
+    #[test]
+    fn test_vector() {
+        let mut arbitrage_list:Vec<ArbitrageResponse> = Vec::new();
+        let mut i = 0;
+        while i < 2 {
+            arbitrage_list.push(ArbitrageResponse{native_token: String::from("a"), token: String::from("b"), starting_exchange: String::from("T"), ending_exchange: String::from("A"), starting_exchange_factory: String::from("t"), ending_exchange_factory: String::from("a"), optimal_starting_amount: Uint128::zero(), calculated_profit: Uint128::zero(), simulated_profit: Uint128::zero()});
+            i += 1;
+        }
+        println!("{:?}", arbitrage_list);
+    }
+
+    #[test]
+    fn test_estimate_arbitrage() {
+        let mut arbitrage_list:Vec<ArbitrageResponse> = Vec::new();
+        for native_token in NATIVE_TOKEN_LIST {
+            for token in TOKEN_LIST {
+                //Read Liquidity pools into variables
+                let (mut astroport_native_token_amount, mut astroport_token_amount, mut terraswap_native_token_amount, mut terraswap_token_amount): (Uint128, Uint128, Uint128, Uint128) = (Uint128::zero(), Uint128::zero(), Uint128::zero(), Uint128::zero());
+                astroport_native_token_amount = Uint128::try_from("100000").unwrap();
+                astroport_token_amount = Uint128::try_from("2000000").unwrap();
+                terraswap_native_token_amount = Uint128::try_from("5000000").unwrap();
+                terraswap_token_amount = Uint128::try_from("1000000000").unwrap();
+                let starting_amount_from_astroport_to_terraswap: Uint128 = Uint128::try_from("10").unwrap();
+                let starting_amount_from_terraswap_to_astroport = match Err(..) {
+                    Ok(value) => value,
+                    Err(..) => Uint128::zero(),
+                };
+                let profit_from_astroport_to_terraswap: Uint128 = Uint128::try_from("5").unwrap();
+                let profit_from_terraswap_to_astroport: Uint128 = match Err(..) {
+                    Ok(value) => value,
+                    Err(..) => Uint128::zero(),
+                };
+                //Finalize the arbitrage estimation
+                let (starting_exchange_factory, ending_exchange_factory, starting_exchange, ending_exchange, starting_amount, calculated_profit): (String, String, String, String, Uint128, Uint128);
+                if starting_amount_from_astroport_to_terraswap > Uint128::zero() {
+                    starting_exchange_factory = String::from("A");
+                    ending_exchange_factory = String::from("T");
+                    starting_exchange = String::from("Astroport");
+                    ending_exchange = String::from("Terraswap");
+                    starting_amount = starting_amount_from_astroport_to_terraswap;
+                    calculated_profit = profit_from_astroport_to_terraswap;
+                } else if starting_amount_from_terraswap_to_astroport > Uint128::zero() {
+                    starting_exchange_factory = String::from("T");
+                    ending_exchange_factory = String::from("A");
+                    starting_exchange = String::from("Terraswap");
+                    ending_exchange = String::from("Astroport");
+                    starting_amount = starting_amount_from_terraswap_to_astroport;
+                    calculated_profit = profit_from_terraswap_to_astroport;
+                } else {
+                    //No arbitrage opportunity found
+                    continue;
+                }
+                //Native token -> Token
+                let exchanged_token_amount: Uint128 = Uint128::try_from("50").unwrap();
+                //Token -> Native token
+                let exchange_native_token_amount: Uint128 = Uint128::try_from("3").unwrap();
+                //Calculate simulated profit
+                let simulated_profit = exchange_native_token_amount - starting_amount;
+                arbitrage_list.push(ArbitrageResponse { native_token: native_token.id.to_string(), token: token.id.to_string(), starting_exchange: starting_exchange, starting_exchange_factory: starting_exchange_factory.clone(), ending_exchange: ending_exchange, ending_exchange_factory: ending_exchange_factory.clone(), optimal_starting_amount: starting_amount, calculated_profit: calculated_profit, simulated_profit: simulated_profit });
+            }
+        }
+        println!("{:?}", arbitrage_list);
+    }
 }
+    

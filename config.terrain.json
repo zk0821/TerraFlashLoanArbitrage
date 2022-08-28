@@ -3,9 +3,9 @@
     "_base": {
       "instantiation": {
         "instantiateMsg": {
-          "terraswap_factory_address": "terra1jha5avc92uerwp9qzx3flvwnyxs3zax2rrm6jkcedy2qvzwd2k7qk7yxcl",
-          "astroport_factory_address": "terra1z3y69xas85r7egusa0c7m5sam0yk97gsztqmh8f2cc6rr4s4anysudp7k0",
-          "flash_loan_contract_address": "terra1lxrx88zm2m24nrcppxm8a4fnt8xsmf73ass03es76swwsfejm89q6mcn60",
+          "terraswap_factory_address": "terra1466nf3zuxpya8q9emxukd7vftaf6h4psr0a07srl5zw74zh84yjqxl5qul",
+          "astroport_factory_address": "terra14x9fr055x5hvr48hzy2t4q7kvjvfttsvxusa4xsdcy702mnzsvuqprer8r",
+          "flash_loan_contract_address": "terra1a3wwalsnhjjef0gvuhhh52resvsj2lt3pdxmtf3lzdpcnyh7dp6qe4pt0x",
           "fee": "0.01",
           "loan_denom": "uluna"
         }
@@ -15,7 +15,7 @@
   "mainnet": {
     "_connection": {
       "chainID": "phoenix-1",
-      "URL": "https://lcd.terra.dev"
+      "URL": "https://phoenix-lcd.terra.dev"
     }
   },
   "testnet": {

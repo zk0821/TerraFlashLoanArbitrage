@@ -12,5 +12,19 @@
         "default": "terra1lxrx88zm2m24nrcppxm8a4fnt8xsmf73ass03es76swwsfejm89q6mcn60"
       }
     }
+  },
+  "mainnet": {
+    "flash-loan": {
+      "codeId": "329",
+      "contractAddresses": {
+        "default": "terra1a3wwalsnhjjef0gvuhhh52resvsj2lt3pdxmtf3lzdpcnyh7dp6qe4pt0x"
+      }
+    },
+    "arbitrage": {
+      "codeId": "336",
+      "contractAddresses": {
+        "default": "terra1e2wtl2cu8xrh3pex6a3wdcppfcw6zsrnvtaltzyly7a6r3kkavnqg0nu9v"
+      }
+    }
   }
 }

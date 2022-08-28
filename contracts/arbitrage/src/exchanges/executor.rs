@@ -13,9 +13,8 @@ pub fn swap_message(deps: Deps, factory_addr: Addr, offer_asset: Asset, wanted_a
     let pool_address: String = query_pair_information(deps.querier, factory_addr.clone(), &[offer_asset.info.clone(), wanted_asset])?.contract_addr;
 
     let astroport_factory: FactoryState = FACTORIES.load(deps.storage, "ASTROPORT".to_string())?;
-    let terraswap_factory: FactoryState = FACTORIES.load(deps.storage, "TERRASWAP".to_string())?;
 
-    let mut max_spread: Option<Decimal> = None;
+    let max_spread: Option<Decimal>;
 
     if factory_addr.clone().to_string() == astroport_factory.contract_addr {
         max_spread = Some(Decimal::percent(50));

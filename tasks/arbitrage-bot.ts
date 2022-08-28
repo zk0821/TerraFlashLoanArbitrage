@@ -7,18 +7,8 @@ const arbitrageResultsFilename = "arbitrage-results.json";
 task(async (env:Env) => {
   const lib = new Lib(env);
   while(true) {
-    console.log("Estimating arbitrage...");
-    let response = await lib.estimateArbitrage();
-    let bestArbitrageOpportunity;
-    if(Array.isArray(response)) {
-      response.forEach((element) => {
-        if(!bestArbitrageOpportunity || bestArbitrageOpportunity.simulated_profit < element.simulated_profit) {
-          bestArbitrageOpportunity = element;
-        }
-      })
-    }
-    if (bestArbitrageOpportunity) {
-      console.log("Executing arbitrage...");
+    console.log("Executing arbitrage...");
+    try {
       let executeArbitrage = await lib.executeArbitrage();
       const arbitrageResponse = {
         transactionHash: executeArbitrage.txhash,
@@ -38,11 +28,15 @@ task(async (env:Env) => {
       var jsonArbitrageResponse = JSON.stringify(arbitrage_results);
       fs.writeFile(arbitrageResultsFilename, jsonArbitrageResponse, 'utf8', function(err) {
         if (err) throw err;
-        console.log("Executed arbitrage for profit: ", bestArbitrageOpportunity.simulated_profit);
+        console.log("Executed arbitrage for profit: ", executeArbitrage);
       });
-    } else {
-      console.log("No arbitrage opportunity found!");
-      await new Promise(resolve => setTimeout(resolve, 5000));
+    } catch(error) {
+      if(error.response.data.message.includes("Arbitrage not successful.")){
+        console.log("Arbitrage was not successful. Actual profit is negative!");
+        await new Promise(resolve => setTimeout(resolve, 10000));
+      } else {
+        throw error;
+      }
     }
   }
 });

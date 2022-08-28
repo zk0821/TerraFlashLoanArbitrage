@@ -1,1 +1,1 @@
-105616c19b160692daf50904f24f9ec148c8b8827d85cec75ac151728c83a448  ./target/wasm32-unknown-unknown/release/arbitrage.wasm
+9afba8ba629f120983f68a2dca279d6511f7637cdad3d2d2f84d0f6fb2e437ca  ./target/wasm32-unknown-unknown/release/arbitrage.wasm
